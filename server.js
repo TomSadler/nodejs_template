@@ -1,4 +1,4 @@
-let logger = require('logger');
+let logger = require('logger/logger');
 // call the packages we need
 let express    = require('express');        // call express
 let app        = express();                 // define our app using express

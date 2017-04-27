@@ -3,7 +3,7 @@ let path = require('path');
 let favicon = require('serve-favicon');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-let logger = require('logger');
+let logger = require('logger/logger');
 let index = require('./routes/index');
 let users = require('./routes/users');
 
