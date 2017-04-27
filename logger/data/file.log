@@ -56,3 +56,8 @@
 {"level":"info","message":"Hello world","timestamp":"2017-04-25T11:51:45.684Z"}
 {"level":"warn","message":"Warning message","timestamp":"2017-04-25T11:51:45.684Z"}
 {"level":"error","message":"Error info","timestamp":"2017-04-25T11:51:45.684Z"}
+{"level":"debug","message":"Debugging info","timestamp":"2017-04-26T14:23:40.734Z"}
+{"level":"verbose","message":"Verbose info","timestamp":"2017-04-26T14:23:40.734Z"}
+{"level":"info","message":"Hello world","timestamp":"2017-04-26T14:23:40.734Z"}
+{"level":"warn","message":"Warning message","timestamp":"2017-04-26T14:23:40.734Z"}
+{"level":"error","message":"Error info","timestamp":"2017-04-26T14:23:40.734Z"}

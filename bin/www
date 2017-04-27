@@ -7,7 +7,7 @@
 let app = require('../app');
 let debug = require('debug')('node.js-template:server');
 let http = require('http');
-let logger = require('logger');
+let logger = require('logger/logger');
 
 /**
  * Get port from environment and store in Express.

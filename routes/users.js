@@ -1,4 +1,4 @@
-let logger = require('logger');
+let logger = require('logger/logger');
 let express = require('express');
 let router = express.Router();
 
