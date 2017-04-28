@@ -3,23 +3,11 @@ let path = require('path');
 let favicon = require('serve-favicon');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
-let logger = require('logger');
+let logger = require('logger/logger');
 let index = require('./routes/index');
 let users = require('./routes/users');
 
 let app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
@@ -41,5 +29,70 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// Swagger Import
+let swaggerJSDoc = require('swagger-jsdoc');
+
+// Swagger Definition
+let swaggerDefinition =  config.swagger;
+
+// Options for the swagger docs
+let options = {
+    swaggerDefinition: swaggerDefinition,
+    apis: ['app.js'], // Path to API Documentation
+};
+
+// Initialize Swagger-jsdoc
+let swaggerSpec = swaggerJSDoc(options);
+
+// Server Swagger
+app.get('/swagger.json', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+
+/**
+ * @swagger
+ * /example/{id} :
+ *   get:
+ *     tags:
+ *       - ExampleAPI
+ *     description: Returns the whole cloudant document
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         description: The Id for the particular cloudant document you wish to update
+ *         in: path
+ *         type: string
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Successfully created
+ */
+//GET's the contacts details
+app.get('/' + apiPath.base + '/:id', function(request, response){
+
+    let responseBody = {};
+
+    cloudantIntegration.getDoc(request.params.id, function(err, doc){
+        if (!err && doc){
+            response.status(config.web.status.success.ok.code);
+            responseBody = doc;
+        } else if (err){
+            response.status(config.web.status.failure.notFound.code);
+            responseBody.message = config.web.status.failure.notFound.message;
+            responseBody.error = err;
+        }
+
+        response.setHeader('Content-Type', 'application/json');
+        response.write(JSON.stringify(responseBody));
+        response.end();
+        return;
+
+    });
+});
+
+
 
 module.exports = app;
