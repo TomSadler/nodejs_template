@@ -16,6 +16,7 @@ Cloudant({account:username, password:password}, function(err, cloudant) {
         return console.log('Failed to initialize Cloudant: ' + err.message);
     }});
 
+// Get Database
 mydb.list().then(function(data) {
     console.log(data);
 }).catch(function(err) {
