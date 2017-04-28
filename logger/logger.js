@@ -47,5 +47,5 @@ logger.info('Hello world');
 logger.warn('Warning message');
 logger.error('Error info');
 
-module.exports = winston;
+module.exports = logger;
 
